@@ -1,22 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+
+import { app } from "../../firebase";
+import { signUpSchema } from "../../common/auth/validation";
+
 import { Logo } from "../../common/assets/icons";
 
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { app } from "../../firebase";
-
 export const SignupPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
   const auth = getAuth(app);
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(signUpSchema) });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+  const onSubmit = (data) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(() => {
+        navigate("/sign-in");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -27,7 +32,7 @@ export const SignupPage = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-800">
-      <div className="bg-gray-800 text-white w-1/2 h-screen flex items-center justify-center">
+      <div className="bg-gray-800 text-white w-1/2 h-screen hidden md:flex items-center justify-center">
         <div className="text-center">
           <div className="flex justify-center my-8">
             <Logo />
@@ -39,10 +44,10 @@ export const SignupPage = () => {
         </div>
       </div>
 
-      <div className="bg-white w-1/2 h-screen flex items-center justify-center">
+      <div className="bg-white w-full md:w-1/2 h-screen flex items-center justify-center">
         <div className="w-2/3">
-          <h2 className="text-3xl font-bold mb-8 text-center">Signup</h2>
-          <form onSubmit={handleSubmit}>
+          <h2 className="text-3xl font-bold mb-4 text-center">Sign Up</h2>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -53,11 +58,10 @@ export const SignupPage = () => {
               <input
                 type="email"
                 id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
-                required
+                {...register("email")}
               />
+              <p className="errorMessage">{errors?.email?.message}</p>
             </div>
             <div className="mb-4">
               <label
@@ -69,11 +73,11 @@ export const SignupPage = () => {
               <input
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
                 autoComplete="false"
+                {...register("password")}
               />
+              <p className="errorMessage">{errors?.password?.message}</p>
             </div>
             <div className="mb-4">
               <label
@@ -85,17 +89,25 @@ export const SignupPage = () => {
               <input
                 type="password"
                 id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
                 autoComplete="false"
+                {...register("confirmPassword")}
               />
+              <p className="errorMessage">{errors?.confirmPassword?.message}</p>
+            </div>
+            <div className="mb-4">
+              <p className="text-gray-700">
+                Already have an account?{" "}
+                <Link className="text-blue-500" to="/sign-in">
+                  Sign-in
+                </Link>
+              </p>
             </div>
             <button
               type="submit"
               className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
             >
-              Signup
+              Sign-up
             </button>
           </form>
         </div>

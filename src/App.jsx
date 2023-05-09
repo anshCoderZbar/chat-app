@@ -1,7 +1,9 @@
 import { AllRoutes } from "./routes";
+import { AppContext } from "./store";
 
 function App() {
-  return <AllRoutes />;
+  const { auth } = AppContext();
+  return <AllRoutes token={auth?.accessToken} />;
 }
 
 export default App;

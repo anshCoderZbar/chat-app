@@ -3,13 +3,13 @@ import { Navigate } from "react-router-dom";
 import { MasterLayout } from "../../common/layout";
 
 export const PrivateRoutes = ({ children }) => {
-  const auth = false;
+  const authData = JSON.parse(sessionStorage.getItem("userData"));
   return (
     <>
-      {auth ? (
+      {authData?.accessToken ? (
         <MasterLayout>{children}</MasterLayout>
       ) : (
-        <Navigate to="/sign-up" />
+        <Navigate to="/sign-in" />
       )}
     </>
   );
