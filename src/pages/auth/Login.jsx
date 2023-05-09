@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { app } from "../../firebase";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNotifications } from "reapop";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { AppContext } from "../../store";
 import { loginSchema } from "../../common/auth/validation";
 
-import { Logo } from "../../common/assets/icons";
-
+import { LoadingIcon, Logo } from "../../common/assets/icons";
 export const LoginPage = () => {
   const auth = getAuth(app);
-
+  const [loading, setLoading] = useState(false);
+  const { notify } = useNotifications();
   const {
     register,
     handleSubmit,
@@ -22,7 +23,8 @@ export const LoginPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    signInWithEmailAndPassword(auth, data.email, data.password)
+    setLoading(true);
+    signInWithEmailAndPassword(auth, data?.email, data?.password)
       .then((userCredential) => {
         const user = userCredential.user;
         sessionStorage.setItem(
@@ -31,11 +33,13 @@ export const LoginPage = () => {
         );
         setUserDetails(auth);
         navigate("/");
+        notify("Welcome back", "success");
+        setLoading(false);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("signIN error: ", errorCode, errorMessage);
+        setLoading(false);
+        notify(errorMessage, "error");
       });
   };
 
@@ -96,13 +100,18 @@ export const LoginPage = () => {
                 </Link>
               </p>
             </div>
-
-            <button
-              type="submit"
-              className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-            >
-              Sign-in
-            </button>
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <LoadingIcon />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              >
+                Sign-up
+              </button>
+            )}
           </form>
         </div>
       </div>

@@ -1,9 +1,26 @@
+import { useEffect, useState } from "react";
 import { AllRoutes } from "./routes";
 import { AppContext } from "./store";
 
 function App() {
   const { auth } = AppContext();
-  return <AllRoutes token={auth?.accessToken} />;
+  const [loading, setLoading] = useState(true);
+  const spinner = document.getElementById("spinner");
+  const root = document.getElementById("root");
+
+  useEffect(() => {
+    if (!root) {
+      spinner.style.display = "block";
+      setLoading(true);
+    } else {
+      setTimeout(() => {
+        spinner.style.display = "none";
+        setLoading(false);
+      }, 2000);
+    }
+  }, []);
+
+  return <>{!loading && <AllRoutes token={auth?.accessToken} />}</>;
 }
 
 export default App;

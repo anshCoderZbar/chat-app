@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -7,10 +7,13 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "../../firebase";
 import { signUpSchema } from "../../common/auth/validation";
 
-import { Logo } from "../../common/assets/icons";
+import { LoadingIcon, Logo } from "../../common/assets/icons";
+import { useNotifications } from "reapop";
 
 export const SignupPage = () => {
   const auth = getAuth(app);
+  const [loading, setLoading] = useState(false);
+  const { notify } = useNotifications();
   const navigate = useNavigate();
   const {
     register,
@@ -19,14 +22,18 @@ export const SignupPage = () => {
   } = useForm({ resolver: yupResolver(signUpSchema) });
 
   const onSubmit = (data) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
+    setLoading(true);
+    createUserWithEmailAndPassword(auth, data?.email, data?.password)
       .then(() => {
         navigate("/sign-in");
+        notify("Account created successfully! Please login", "success");
+        setLoading(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("Signup error: ", errorCode, errorMessage);
+        setLoading(false);
+        notify(errorMessage, "error");
       });
   };
 
@@ -103,12 +110,18 @@ export const SignupPage = () => {
                 </Link>
               </p>
             </div>
-            <button
-              type="submit"
-              className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-            >
-              Sign-up
-            </button>
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <LoadingIcon />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+              >
+                Sign-up
+              </button>
+            )}
           </form>
         </div>
       </div>

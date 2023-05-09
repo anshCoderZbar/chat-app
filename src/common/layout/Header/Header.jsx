@@ -9,7 +9,7 @@ export const Header = () => {
     navigate("/sign-in");
   };
   return (
-    <nav className="bg-gray-800 py-4 px-6 flex justify-between items-center">
+    <nav className="bg-gray-800 fixed w-full z-50 py-4 px-6 flex justify-between items-center">
       <div className="flex items-center">
         <Logo />
         <h1 className="text-white text-xl font-bold">LetsTalk</h1>

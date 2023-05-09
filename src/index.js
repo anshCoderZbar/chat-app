@@ -4,13 +4,18 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Store } from "./store";
+import { Notification } from "./components/Notification";
+import { NotificationsProvider } from "reapop";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Store>
-      <App />
-    </Store>
+    <NotificationsProvider>
+      <Notification />
+      <Store>
+        <App />
+      </Store>
+    </NotificationsProvider>
   </React.StrictMode>
 );
 
