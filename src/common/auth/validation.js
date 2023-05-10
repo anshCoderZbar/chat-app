@@ -11,6 +11,7 @@ export const loginSchema = object({
 });
 
 export const signUpSchema = object({
+  userName: string().required("Username is required"),
   email: string()
     .required("Email is required")
     .matches(

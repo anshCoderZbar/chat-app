@@ -11,6 +11,7 @@ export const AllRoutes = (props) => {
     <BrowserRouter>
       <Routes>
         <Route
+          exact
           path="/sign-up"
           element={
             <PublicRoutes restricted={props.token}>
@@ -19,6 +20,7 @@ export const AllRoutes = (props) => {
           }
         />
         <Route
+          exact
           path="/sign-in"
           element={
             <PublicRoutes restricted={props.token}>
@@ -27,7 +29,17 @@ export const AllRoutes = (props) => {
           }
         />
         <Route
+          exact
           path="/"
+          element={
+            <PrivateRoutes>
+              <Home />
+            </PrivateRoutes>
+          }
+        />
+        <Route
+          exact
+          path="/:id"
           element={
             <PrivateRoutes>
               <Home />

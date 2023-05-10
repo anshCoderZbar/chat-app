@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const UserContext = createContext({});
+
 export const Store = ({ children }) => {
   const [userDetails, setUserDetails] = useState({});
   const [auth, setAuth] = useState(() => {
@@ -10,7 +11,7 @@ export const Store = ({ children }) => {
 
   useEffect(() => {
     sessionStorage.setItem("userData", JSON.stringify(auth));
-    setAuth(auth);
+    setAuth(() => auth);
   }, []);
 
   return (

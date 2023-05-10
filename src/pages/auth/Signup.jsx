@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { addDoc, collection, getFirestore } from "@firebase/firestore";
 
 import { app } from "../../firebase";
 import { signUpSchema } from "../../common/auth/validation";
@@ -12,6 +13,7 @@ import { useNotifications } from "reapop";
 
 export const SignupPage = () => {
   const auth = getAuth(app);
+  const db = getFirestore();
   const [loading, setLoading] = useState(false);
   const { notify } = useNotifications();
   const navigate = useNavigate();
@@ -24,16 +26,32 @@ export const SignupPage = () => {
   const onSubmit = (data) => {
     setLoading(true);
     createUserWithEmailAndPassword(auth, data?.email, data?.password)
-      .then(() => {
-        navigate("/sign-in");
+      .then((userCredential) => {
         notify("Account created successfully! Please login", "success");
         setLoading(false);
+
+        const writeUserData = (userId, name, email) => {
+          const userCollection = collection(db, "users");
+          const userDoc = {
+            username: name,
+            email: email,
+            id: userId,
+          };
+          try {
+            const docRef = addDoc(userCollection, userDoc);
+            console.log("Document written with ID: ", docRef.id);
+          } catch (error) {
+            console.error("Error adding document: ", error);
+          }
+        };
+        writeUserData(userCredential?.user?.uid, data?.userName, data?.email);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setLoading(false);
         notify(errorMessage, "error");
+        console.log(errorMessage);
       });
   };
 
@@ -55,6 +73,21 @@ export const SignupPage = () => {
         <div className="w-2/3">
           <h2 className="text-3xl font-bold mb-4 text-center">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Username:
+              </label>
+              <input
+                type="text"
+                id="userName"
+                className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
+                {...register("userName")}
+              />
+              <p className="errorMessage">{errors?.userName?.message}</p>
+            </div>
             <div className="mb-4">
               <label
                 htmlFor="email"
