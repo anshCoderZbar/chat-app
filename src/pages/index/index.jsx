@@ -58,7 +58,7 @@ export const Home = () => {
     <div className="grid grid-cols-[1fr,1fr] relative  md:grid-cols-[400px,1fr] b_ss">
       <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
         <div className="max-h-[1080px] w-full overflow-x-hidden ">
-          <div className="h-full relative mt-[5.25rem] text-white chat-gs cursor-pointer">
+          <div className="h-[91vh] relative mt-[5.25rem] text-white chat-gs overflow-x-hidden overflow-y-scroll cursor-pointer">
             {users?.length >= 1 &&
               users?.map((data, i) => {
                 return (
@@ -69,7 +69,7 @@ export const Home = () => {
                     onClick={() =>
                       setActive({ toggle: true, name: data?.username })
                     }
-                    className={`flex flex-row py-4  justify-center border-b border-[#2e374c] items-center gap-5 vs-f ${
+                    className={`flex flex-row py-4 justify-center border-b border-[#2e374c] items-center gap-5 vs-f ${
                       data?.id === id ? "md:border md:border-white" : ""
                     }`}
                   >
@@ -95,7 +95,7 @@ export const Home = () => {
               : "translate-x-full transition-ease-out duration-500"
           }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 min-h-screen  h-full bg-gray-900 text-white chat-side`}
         >
-          <div className="flex-grow p-4 relative mt-[5.25rem] overflow-y-auto chat-gss">
+          <div className="flex-grow p-4 relative mt-[5.25rem] overflow-y-auto overflow-x-hidden">
             <div className="back block md:hidden">
               <div className="main_top_bar">
                 <div
@@ -137,7 +137,7 @@ export const Home = () => {
           <InputMessage id={id} />
         </div>
       ) : (
-        <div className="flex flex-col min-h-screen h-full bg-gray-900 text-white chat-side">
+        <div className="flex flex-col min-h-screen translate-x-full  md:translate-x-0 h-full bg-gray-900 text-white chat-side">
           <div className="flex justify-center items-center h-screen mt-[5.25rem]">
             <h1 className="text-lg">
               Hello! Please select a user to start a chat with
