@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 
 import { InputMessage } from "../../common/chatIndex/Input";
-import { ArrowIcon } from "../../common/assets/icons";
+import { ArrowIcon, LoadingChatIcon } from "../../common/assets/icons";
 
 export const Home = () => {
   const db = getFirestore();
@@ -140,6 +140,7 @@ export const Home = () => {
         <div className="hidden md:flex flex-col min-h-screen bg-gray-900 chat-side text-white ">
           <div className="flex justify-center items-center h-screen mt-[5.25rem]">
             <h1 className="text-lg">
+              {/* <LoadingChatIcon /> */}
               Hello! Please select a user to start a chat with
             </h1>
           </div>

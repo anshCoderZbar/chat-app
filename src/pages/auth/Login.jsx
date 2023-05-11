@@ -51,7 +51,7 @@ export const LoginPage = () => {
             <Logo />
           </div>
           <p className="text-xl mb-8">
-            Create an account and get started with our chat application
+            Sign-in your account and get started with our chat application
           </p>
           <p className="text-xl">Enjoy the benefits and features we offer!</p>
         </div>

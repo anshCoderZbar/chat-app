@@ -83,3 +83,43 @@ export const ArrowIcon = () => {
     </svg>
   );
 };
+
+export const LoadingChatIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 50 50"
+      width="40"
+      height="40"
+      className="animated-loading-icon"
+    >
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="transparent"
+        strokeWidth="5"
+        stroke="#2d3748"
+      />
+      <circle
+        cx="25"
+        cy="25"
+        r="20"
+        fill="transparent"
+        strokeWidth="5"
+        stroke="#fff"
+        strokeDasharray="30 150"
+      >
+        <animateTransform
+          attributeName="transform"
+          attributeType="XML"
+          type="rotate"
+          dur="2s"
+          from="0 25 25"
+          to="360 25 25"
+          repeatCount="indefinite"
+        />
+      </circle>
+    </svg>
+  );
+};
