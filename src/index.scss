@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html,
+body {
+  overflow-x: hidden;
+}
 
 body {
   scrollbar-color: var(--scroll-thumb-color, grey)
@@ -47,6 +51,46 @@ body {
   height: 100vh;
 }
 .vs-f {
-  border-bottom: 1px solid #2e374c;
   padding: 13px 18px 15px 18px;
+}
+.back svg {
+  width: 16px;
+  position: relative;
+  left: 0;
+}
+.prvs {
+  position: absolute;
+  left: 0;
+  background-color: #2d3440;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 30px;
+  justify-content: center;
+  transition: 0.3s;
+}
+.prvs:hover {
+  background-color: #6366f1;
+  transition: 0.3s;
+}
+.main_top_bar strong {
+  font-weight: 400;
+}
+.back {
+  bottom: 9px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.0509803922);
+  border-radius: 4px;
+  left: 0;
+  margin-bottom: 10px;
+}
+.main_top_bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 5px;
 }

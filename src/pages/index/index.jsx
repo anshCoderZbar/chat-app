@@ -3,11 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 
 import { InputMessage } from "../../common/chatIndex/Input";
+import { ArrowIcon } from "../../common/assets/icons";
 
 export const Home = () => {
   const db = getFirestore();
   const [users, setUsers] = useState([]);
   const [userChat, setUserChat] = useState([]);
+  const [active, setActive] = useState({ toggle: false, name: "" });
   const { id } = useParams();
   const userData = JSON.parse(sessionStorage.getItem("userData"));
 
@@ -16,7 +18,10 @@ export const Home = () => {
       const newData = snapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      setUsers(newData);
+      const filteredUser = newData.filter((data) => {
+        return data?.id !== userData?.uid;
+      });
+      setUsers(filteredUser);
     });
 
     if (id) {
@@ -49,32 +54,32 @@ export const Home = () => {
   };
   const newChat = userChat.sort(sort);
 
-  const filteredUser = users?.filter((data) => {
-    return data?.id !== userData?.uid;
-  });
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[400px,1fr] b_ss">
-      <div className="bg-gray-800 min-h-screen h-full user-side">
-        <div className="max-h-[1080px] w-full overflow-x-hidden">
+    <div className="grid grid-cols-[1fr,1fr] relative  md:grid-cols-[400px,1fr] b_ss">
+      <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
+        <div className="max-h-[1080px] w-full overflow-x-hidden ">
           <div className="h-full relative mt-[5.25rem] text-white chat-gs cursor-pointer">
-            {filteredUser?.length >= 1 &&
-              filteredUser?.map((data, i) => {
+            {users?.length >= 1 &&
+              users?.map((data, i) => {
                 return (
                   <Link
                     key={i}
                     id={data?.id}
                     to={`/${data?.id}`}
-                    className="flex flex-row py-4  justify-center items-center gap-5 vs-f"
+                    onClick={() =>
+                      setActive({ toggle: true, name: data?.username })
+                    }
+                    className={`flex flex-row py-4  justify-center border-b border-[#2e374c] items-center gap-5 vs-f ${
+                      data?.id === id ? "md:border md:border-white" : ""
+                    }`}
                   >
-                    <div className="bg-gray-500 grid place-items-center rounded-full text-center h-16 w-20 uppercase">
+                    <div className="bg-gray-500 grid place-items-center rounded-full text-center font-semibold text-xl h-16 w-20 uppercase">
                       {data?.username?.charAt(0)}
                     </div>
                     <div className="w-full">
                       <div className="text-lg font-semibold capitalize">
                         {data?.username}
                       </div>
-                      <span className="text-gray-500">Pata hai</span>
                     </div>
                   </Link>
                 );
@@ -83,8 +88,29 @@ export const Home = () => {
         </div>
       </div>
       {id && id ? (
-        <div className="flex flex-col min-h-screen h-full bg-gray-900 text-white chat-side">
+        <div
+          className={`flex flex-col ${
+            active.toggle
+              ? "translate-x-0 transition-ease-in duration-500"
+              : "translate-x-full transition-ease-out duration-500"
+          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 min-h-screen  h-full bg-gray-900 text-white chat-side`}
+        >
           <div className="flex-grow p-4 relative mt-[5.25rem] overflow-y-auto chat-gss">
+            <div className="back block md:hidden">
+              <div className="main_top_bar">
+                <div
+                  className="prvs"
+                  onClick={() =>
+                    setActive({ toggle: false, name: active?.name })
+                  }
+                >
+                  <ArrowIcon />
+                </div>
+                <div className="user_name capitalize">
+                  <strong>{active && active?.name}</strong>
+                </div>
+              </div>
+            </div>
             {newChat.length >= 1 &&
               newChat?.map((message, index) => (
                 <div
@@ -108,7 +134,6 @@ export const Home = () => {
                 </div>
               ))}
           </div>
-
           <InputMessage id={id} />
         </div>
       ) : (
