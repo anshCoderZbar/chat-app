@@ -88,38 +88,87 @@ export const LoadingChatIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 50 50"
-      width="40"
-      height="40"
-      className="animated-loading-icon"
+      viewBox="0 0 48 48"
+      width="100"
+      stroke="grey"
+      data-testid="rotating-lines-svg"
+      aria-label="rotating-lines-loading"
+      aria-busy="true"
+      role="status"
+      className="animate-spin"
     >
-      <circle
-        cx="25"
-        cy="25"
-        r="20"
-        fill="transparent"
-        strokeWidth="5"
-        stroke="#2d3748"
-      />
-      <circle
-        cx="25"
-        cy="25"
-        r="20"
-        fill="transparent"
-        strokeWidth="5"
-        stroke="#fff"
-        strokeDasharray="30 150"
-      >
-        <animateTransform
-          attributeName="transform"
-          attributeType="XML"
-          type="rotate"
-          dur="2s"
-          from="0 25 25"
-          to="360 25 25"
-          repeatCount="indefinite"
-        />
-      </circle>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(0, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(30, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(60, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(90, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(120, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(150, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(180, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(210, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(240, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(270, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(300, 24, 24)"
+        className="line"
+      ></polyline>
+      <polyline
+        points="24,12 24,4"
+        width="5"
+        transform="rotate(330, 24, 24)"
+        className="line"
+      ></polyline>
     </svg>
   );
 };

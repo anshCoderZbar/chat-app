@@ -10,6 +10,7 @@ export const Home = () => {
   const [users, setUsers] = useState([]);
   const [userChat, setUserChat] = useState([]);
   const [active, setActive] = useState({ toggle: false, name: "" });
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const userData = JSON.parse(sessionStorage.getItem("userData"));
 
@@ -25,6 +26,7 @@ export const Home = () => {
     });
 
     if (id) {
+      setLoading(true);
       const unsubscribeChat = onSnapshot(collection(db, "chat"), (snapshot) => {
         const newData = snapshot.docs.map((doc) => ({
           ...doc.data(),
@@ -37,6 +39,7 @@ export const Home = () => {
               data.senderId.toLowerCase() === id.toLowerCase())
         );
         setUserChat(filteredChat);
+        setLoading(false);
       });
 
       return () => {
@@ -96,7 +99,7 @@ export const Home = () => {
           }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 min-h-screen  h-full  text-white chat-side`}
         >
           <div className="flex-grow p-4 relative mt-[5.25rem] overflow-y-auto overflow-x-hidden">
-            <div className="back block md:hidden">
+            <div className="back block fixed  md:hidden ">
               <div className="main_top_bar">
                 <div
                   className="prvs"
@@ -111,7 +114,12 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            {newChat.length >= 1 &&
+            {loading ? (
+              <div className="grid place-items-center h-[80vh]">
+                <LoadingChatIcon />
+              </div>
+            ) : (
+              newChat.length >= 1 &&
               newChat?.map((message, index) => (
                 <div
                   key={index}
@@ -132,7 +140,8 @@ export const Home = () => {
                     <p className="text-sm">{message.message}</p>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
           <InputMessage id={id} />
         </div>

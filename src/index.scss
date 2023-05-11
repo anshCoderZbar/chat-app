@@ -81,11 +81,13 @@ body {
 }
 .back {
   bottom: 9px;
-  position: relative;
-  background: rgba(255, 255, 255, 0.0509803922);
+  background: rgb(29 36 50);
   border-radius: 4px;
   left: 0;
   margin-bottom: 10px;
+  position: sticky;
+  top: -17px;
+  z-index: 99999;
 }
 .main_top_bar {
   display: flex;
@@ -93,4 +95,8 @@ body {
   align-items: center;
   position: relative;
   padding: 5px;
+}
+
+.bGRaHI {
+  animation: 0.75s steps(12) 0s infinite normal none running hDKzZY;
 }
