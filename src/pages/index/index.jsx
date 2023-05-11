@@ -91,8 +91,8 @@ export const Home = () => {
         <div
           className={`flex flex-col bg-gray-900 ${
             active.toggle
-              ? "translate-x-0 transition-ease-in duration-500"
-              : "translate-x-full transition-ease-out duration-500"
+              ? "translate-x-0 transition-ease-in duration-500 bg-gray-900"
+              : "translate-x-full transition-ease-out duration-500 bg-gray-900"
           }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 min-h-screen  h-full  text-white chat-side`}
         >
           <div className="flex-grow p-4 relative mt-[5.25rem] overflow-y-auto overflow-x-hidden">
@@ -137,13 +137,11 @@ export const Home = () => {
           <InputMessage id={id} />
         </div>
       ) : (
-        <div className="hidden md:block chat-side">
-          <div className="flex flex-col min-h-screen bg-gray-900 text-white ">
-            <div className="flex justify-center items-center h-screen mt-[5.25rem]">
-              <h1 className="text-lg">
-                Hello! Please select a user to start a chat with
-              </h1>
-            </div>
+        <div className="hidden md:flex flex-col min-h-screen bg-gray-900 chat-side text-white ">
+          <div className="flex justify-center items-center h-screen mt-[5.25rem]">
+            <h1 className="text-lg">
+              Hello! Please select a user to start a chat with
+            </h1>
           </div>
         </div>
       )}
