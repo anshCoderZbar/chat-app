@@ -124,7 +124,7 @@ export const Home = () => {
                       {lastChat?.length >= 1 &&
                         lastChat?.map((chat, i) => {
                           return (
-                            <div key={i}>
+                            <div className="text-gray-200" key={i}>
                               {chat?.receiverId === data.id ||
                               chat?.senderId === data?.id
                                 ? chat?.message
