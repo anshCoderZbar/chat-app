@@ -29,7 +29,7 @@ export const SignupPage = () => {
       .then((userCredential) => {
         notify("Account created successfully! Please login", "success");
         setLoading(false);
-
+        navigate("/sign-in");
         const writeUserData = (userId, name, email) => {
           const userCollection = collection(db, "users");
           const userDoc = {
@@ -47,7 +47,6 @@ export const SignupPage = () => {
         writeUserData(userCredential?.user?.uid, data?.userName, data?.email);
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         setLoading(false);
         notify(errorMessage, "error");

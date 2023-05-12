@@ -11,6 +11,7 @@ export const Home = () => {
   const [userChat, setUserChat] = useState([]);
   const [active, setActive] = useState({ toggle: false, name: "" });
   const [loading, setLoading] = useState(false);
+  const [lastChat, setLastChat] = useState([]);
   const { id } = useParams();
   const userData = JSON.parse(sessionStorage.getItem("userData"));
 
@@ -57,6 +58,43 @@ export const Home = () => {
   };
   const newChat = userChat.sort(sort);
 
+  useEffect(() => {
+    const unsubscribeLastChat = onSnapshot(
+      collection(db, "chat"),
+      (snapshot) => {
+        const newData = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+        }));
+
+        const newUser = users.filter((data) => {
+          return data.id !== userData?.uid;
+        });
+
+        const newId = newUser?.map((element) => {
+          const newChat = newData?.filter((data) => {
+            return (
+              (data.receiverId === element.id &&
+                data.senderId === userData.uid) ||
+              (data.senderId === element.id && data.receiverId === userData.uid)
+            );
+          });
+
+          const sortedChat = newChat.sort(sort);
+
+          return sortedChat.length > 0
+            ? sortedChat[sortedChat.length - 1]
+            : null;
+        });
+        setLastChat(newId);
+      }
+    );
+    return () => {
+      unsubscribeLastChat();
+    };
+  }, [db, userData?.uid, users]);
+
+  console.log(lastChat);
+
   return (
     <div className="grid grid-cols-[1fr,1fr] relative  md:grid-cols-[400px,1fr] b_ss">
       <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
@@ -83,6 +121,17 @@ export const Home = () => {
                       <div className="text-lg font-semibold capitalize">
                         {data?.username}
                       </div>
+                      {lastChat?.length >= 1 &&
+                        lastChat?.map((chat, i) => {
+                          return (
+                            <div key={i}>
+                              {chat?.receiverId === data.id ||
+                              chat?.senderId === data?.id
+                                ? chat?.message
+                                : null}
+                            </div>
+                          );
+                        })}
                     </div>
                   </Link>
                 );
@@ -149,7 +198,6 @@ export const Home = () => {
         <div className="hidden md:flex flex-col min-h-screen bg-gray-900 chat-side text-white ">
           <div className="flex justify-center items-center h-screen mt-[5.25rem]">
             <h1 className="text-lg">
-              {/* <LoadingChatIcon /> */}
               Hello! Please select a user to start a chat with
             </h1>
           </div>
