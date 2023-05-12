@@ -93,8 +93,6 @@ export const Home = () => {
     };
   }, [db, userData?.uid, users]);
 
-  console.log(lastChat);
-
   return (
     <div className="grid grid-cols-[1fr,1fr] relative  md:grid-cols-[400px,1fr] b_ss">
       <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
@@ -127,7 +125,9 @@ export const Home = () => {
                             <div className="text-gray-200" key={i}>
                               {chat?.receiverId === data.id ||
                               chat?.senderId === data?.id
-                                ? chat?.message
+                                ? chat?.message.length > 35
+                                  ? chat?.message?.slice(0, 35) + "..."
+                                  : chat?.message
                                 : null}
                             </div>
                           );
@@ -179,13 +179,12 @@ export const Home = () => {
                   } mb-2`}
                 >
                   <div
-                    className={`p-2 rounded-lg ${
+                    className={`p-3 rounded-lg ${
                       message.senderId === userData?.uid
-                        ? "bg-gray-800"
-                        : "bg-gray-700"
+                        ? "bg-gray-700 !rounded-br-none"
+                        : "bg-gray-700 !rounded-bl-none"
                     }`}
                   >
-                    <p className="text-sm font-bold">{message.sender}</p>
                     <p className="text-sm">{message.message}</p>
                   </div>
                 </div>

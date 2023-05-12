@@ -30,6 +30,8 @@ export const InputMessage = ({ id }) => {
       writeUserMessage(data?.uid, message, id);
     } else return;
   };
+  const isButtonDisabled = message.length === 0;
+
   return (
     <footer className="p-4 bg-gray-900 sticky  w-full bottom-0  z-50">
       <form onSubmit={handleSubmit} className="flex" noValidate>
@@ -42,7 +44,12 @@ export const InputMessage = ({ id }) => {
           onChange={(e) => setMessage(e?.target?.value)}
           required
         />
-        <button className="px-4 py-2 ml-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none">
+        <button
+          disabled={isButtonDisabled}
+          className={`px-4 py-2 ml-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none ${
+            isButtonDisabled ? "bg-indigo-400 hover:bg-indigo-400 " : ""
+          }`}
+        >
           Send
         </button>
       </form>
