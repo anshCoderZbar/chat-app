@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "@firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 import { app } from "../../firebase";
 import { signUpSchema } from "../../common/auth/validation";
@@ -31,18 +32,12 @@ export const SignupPage = () => {
         setLoading(false);
         navigate("/sign-in");
         const writeUserData = (userId, name, email) => {
-          const userCollection = collection(db, "users");
-          const userDoc = {
+          setDoc(doc(db, "users", userId), {
             username: name,
             email: email,
             id: userId,
-          };
-          try {
-            const docRef = addDoc(userCollection, userDoc);
-            console.log("Document written with ID: ", docRef.id);
-          } catch (error) {
-            console.error("Error adding document: ", error);
-          }
+            setLogin: false,
+          });
         };
         writeUserData(userCredential?.user?.uid, data?.userName, data?.email);
       })
@@ -50,7 +45,6 @@ export const SignupPage = () => {
         const errorMessage = error.message;
         setLoading(false);
         notify(errorMessage, "error");
-        console.log(errorMessage);
       });
   };
 

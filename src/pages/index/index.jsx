@@ -96,7 +96,7 @@ export const Home = () => {
   return (
     <div className="grid grid-cols-[1fr,1fr] relative  md:grid-cols-[400px,1fr] b_ss">
       <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
-        <div className="max-h-[1080px] w-full overflow-x-hidden ">
+        <div className="max-h-[1080px] w-full overflow-x-hidden">
           <div className="h-[91vh] relative mt-[5.25rem] text-white chat-gs overflow-x-hidden overflow-y-scroll cursor-pointer">
             {users?.length >= 1 &&
               users?.map((data, i) => {
@@ -112,8 +112,11 @@ export const Home = () => {
                       data?.id === id ? "md:border md:border-white" : ""
                     }`}
                   >
-                    <div className="bg-gray-500 grid place-items-center rounded-full text-center font-semibold text-xl h-16 w-20 uppercase">
+                    <div className="bg-gray-500 relative grid place-items-center rounded-full text-center font-semibold text-xl h-16 w-20 uppercase">
                       {data?.username?.charAt(0)}
+                      {data?.setLogin ? (
+                        <div className="absolute h-4 w-4 bottom-0 right-1 bg-green-500 rounded-full"></div>
+                      ) : null}
                     </div>
                     <div className="w-full">
                       <div className="text-lg font-semibold capitalize">

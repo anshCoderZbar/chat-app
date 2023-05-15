@@ -5,12 +5,14 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNotifications } from "reapop";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
 
 import { AppContext } from "../../store";
 import { loginSchema } from "../../common/auth/validation";
 
 import { LoadingIcon, Logo } from "../../common/assets/icons";
 export const LoginPage = () => {
+  const db = getFirestore();
   const auth = getAuth(app);
   const [loading, setLoading] = useState(false);
   const { notify } = useNotifications();
@@ -29,12 +31,20 @@ export const LoginPage = () => {
         const user = userCredential.user;
         sessionStorage.setItem(
           "userData",
-          JSON.stringify({ accessToken: user.accessToken, uid: user.uid })
+          JSON.stringify({ accessToken: user?.accessToken, uid: user?.uid })
         );
         setUserDetails(auth);
         navigate("/");
         notify("Welcome back", "success");
-        setLoading(false);
+        const docRef = doc(db, "users", user?.uid);
+        const loginStatus = {
+          setLogin: true,
+        };
+        updateDoc(docRef, loginStatus)
+          .then((res) => {
+            console.log("status updated");
+          })
+          .catch((err) => console.log(err));
       })
       .catch((error) => {
         const errorMessage = error.message;
