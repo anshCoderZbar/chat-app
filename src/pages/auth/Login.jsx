@@ -31,8 +31,13 @@ export const LoginPage = () => {
         const user = userCredential.user;
         sessionStorage.setItem(
           "userData",
-          JSON.stringify({ accessToken: user?.accessToken, uid: user?.uid })
+          JSON.stringify({
+            accessToken: user?.accessToken,
+            uid: user?.uid,
+            login: true,
+          })
         );
+
         setUserDetails(auth);
         navigate("/");
         notify("Welcome back", "success");

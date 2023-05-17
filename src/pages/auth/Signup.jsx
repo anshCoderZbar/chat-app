@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Link, unstable_HistoryRouter, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "@firebase/firestore";
+import { getFirestore } from "@firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
 
 import { app } from "../../firebase";

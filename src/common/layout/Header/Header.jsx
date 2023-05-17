@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Logo } from "../../assets/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getFirestore, updateDoc } from "@firebase/firestore";
@@ -22,19 +22,6 @@ export const Header = () => {
       })
       .catch((err) => console.log(err));
   };
-
-  useEffect(() => {
-    const handleTabClose = () => {
-      console.log("unload event triggered");
-      handleLogout();
-    };
-
-    window.addEventListener("unload", handleTabClose);
-
-    return () => {
-      window.removeEventListener("unload", handleTabClose);
-    };
-  }, []);
 
   return (
     <nav className="bg-gray-800 fixed w-full z-50 py-4 px-6 flex justify-between items-center">
