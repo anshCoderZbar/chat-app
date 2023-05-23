@@ -100,8 +100,6 @@ export const Home = () => {
     };
   }, [db, userData?.uid, users]);
 
-  // new code
-
   useEffect(() => {
     const unsubscribe = onSnapshot(
       doc(db, "users", userData?.uid),
@@ -110,10 +108,10 @@ export const Home = () => {
         setSelectedUsers(
           newData?.friendsList?.filter(
             (data) =>
-              (data.requestStatus === true &&
-                data.requestSenderId !== userData?.uid) ||
-              (data.requestStatus === true &&
-                data.requestReceiverId !== userData?.uid)
+              (data?.requestStatus === true &&
+                data?.requestSenderId !== userData?.uid) ||
+              (data?.requestStatus === true &&
+                data?.requestReceiverId !== userData?.uid)
           )
         );
       }
@@ -166,19 +164,21 @@ export const Home = () => {
                           ? data?.senderName
                           : data?.receiverName}
                       </div>
-                      {lastChat?.length >= 1 &&
+                      {/* {lastChat?.length >= 1 &&
                         lastChat?.map((chat, i) => {
                           return (
                             <div className="text-gray-200" key={i}>
-                              {chat?.receiverId === data.requestSenderId ||
-                              chat?.senderId === data?.requestReceiverId
+                              {(chat?.receiverId === data.requestReceiverId &&
+                                data.requestReceiverId !== userData?.uid) ||
+                              (chat?.senderId === data.requestSenderId &&
+                                data.requestSenderId !== userData?.uid)
                                 ? chat?.message.length > 35
                                   ? chat?.message?.slice(0, 35) + "..."
                                   : chat?.message
                                 : null}
                             </div>
                           );
-                        })}
+                        })} */}
                     </div>
                   </Link>
                 );

@@ -7,9 +7,12 @@ import {
   updateDoc,
 } from "@firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { AddFriend } from "../../common/assets/icons";
+import { useNotifications } from "reapop";
 
 const DropdownSearchMenu = () => {
   const db = getFirestore();
+  const { notify } = useNotifications();
   const [selectedOption, setSelectedOption] = useState("");
   const [users, setUsers] = useState([]);
   const [thisUser, setThisUser] = useState();
@@ -55,7 +58,7 @@ const DropdownSearchMenu = () => {
       friendsList: arrayUnion(friendRequest),
     })
       .then((res) => {
-        console.log("req sent");
+        notify("Friend Request Sent", "success");
       })
       .catch((err) => console.log(err));
   };
@@ -79,12 +82,12 @@ const DropdownSearchMenu = () => {
                 className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-600"
               >
                 <span className="text-white">{user.username}</span>
-                <button
+                <div
                   onClick={() => sendFriendRequest(user?.id, user?.username)}
-                  className="flex-shrink-0 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md"
+                  className="flex-shrink-0 text-white py-1 px-3 rounded-md"
                 >
-                  Add Friend
-                </button>
+                  <AddFriend />
+                </div>
               </li>
             ))
           ) : (

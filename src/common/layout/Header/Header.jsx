@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Logo } from "../../assets/icons";
+import { Logo, SearchIcon } from "../../assets/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getFirestore, onSnapshot, updateDoc } from "@firebase/firestore";
 import DropdownSearchMenu from "../../../components/Search";
@@ -11,7 +11,7 @@ export const Header = () => {
   const db = getFirestore();
   const [isOpen, setIsOpen] = useState(false);
   const [totalRequest, setTotalRequest] = useState([]);
-
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
   const userData = JSON.parse(sessionStorage.getItem("userData"));
   const activeUser = sessionStorage.getItem("activeUserName");
@@ -53,8 +53,17 @@ export const Header = () => {
         <Logo />
         <h1 className="text-white text-xl font-bold">LetsTalk</h1>
       </Link>
-      <div className="flex items-center gap-5">
-        <DropdownSearchMenu />
+      <div className="flex relative items-center gap-5">
+        <div
+          className={`${
+            active ? "block absolute top-14 w-auto" : "hidden"
+          } md:block`}
+        >
+          <DropdownSearchMenu />
+        </div>
+        <div onClick={() => setActive(!active)} className="block md:hidden">
+          <SearchIcon />
+        </div>
         <div
           className="cursor-pointer relative"
           onClick={() => setIsOpen(!isOpen)}
