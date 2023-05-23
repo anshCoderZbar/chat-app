@@ -1,9 +1,29 @@
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 
-export const PopOver = ({ isOpen, children }) => {
+export const PopOver = ({ isOpen, setIsOpen, children }) => {
+  const popoverRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target) &&
+        isOpen
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isOpen, setIsOpen]);
+
   return (
-    <div className="fixed top-20 -mx-6">
+    <div className="fixed top-20 -mx-6" ref={popoverRef}>
       <Popover className="flex justify-center w-screen">
         <Transition
           show={isOpen}

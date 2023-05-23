@@ -170,8 +170,8 @@ export const Home = () => {
                         lastChat?.map((chat, i) => {
                           return (
                             <div className="text-gray-200" key={i}>
-                              {chat?.receiverId === data.id ||
-                              chat?.senderId === data?.id
+                              {chat?.receiverId === data.requestSenderId ||
+                              chat?.senderId === data?.requestReceiverId
                                 ? chat?.message.length > 35
                                   ? chat?.message?.slice(0, 35) + "..."
                                   : chat?.message

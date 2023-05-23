@@ -48,37 +48,34 @@ export const Header = () => {
   }, [db, userData.uid]);
 
   return (
-    <>
-      <nav className="bg-gray-800 fixed w-full z-50 py-4 px-6  flex justify-between items-center">
-        <Link to="/" className="flex items-center">
-          <Logo />
-          <h1 className="text-white text-xl font-bold">LetsTalk</h1>
-        </Link>
-        <div className="text-white">{activeUser}</div>
-        <div className="flex items-center gap-5">
-          <DropdownSearchMenu />
-          <div
-            className="cursor-pointer relative"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {totalRequest?.length >= 1 && (
-              <span className="bg-red-600 text-white rounded-full w-5 h-5 -right-2 -top-2 text-xs absolute grid place-items-center">
-                {totalRequest?.length}
-              </span>
-            )}
-            <NofiticationIcon />
-          </div>
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
-          >
-            Logout
-          </button>
+    <nav className="bg-gray-800 fixed w-full z-50 py-4 px-6  flex justify-between items-center">
+      <Link to="/" className="flex items-center">
+        <Logo />
+        <h1 className="text-white text-xl font-bold">LetsTalk</h1>
+      </Link>
+      <div className="flex items-center gap-5">
+        <DropdownSearchMenu />
+        <div
+          className="cursor-pointer relative"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {totalRequest?.length >= 1 && (
+            <span className="bg-red-600 text-white rounded-full w-5 h-5 -right-2 -top-2 text-xs absolute grid place-items-center">
+              {totalRequest?.length}
+            </span>
+          )}
+          <NofiticationIcon />
         </div>
-        <PopOver isOpen={isOpen} setIsOpen={setIsOpen}>
-          <FriendRequest id={userData?.uid} />
-        </PopOver>
-      </nav>
-    </>
+        <button
+          onClick={handleLogout}
+          className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
+        >
+          Logout
+        </button>
+      </div>
+      <PopOver isOpen={isOpen} setIsOpen={setIsOpen}>
+        <FriendRequest id={userData?.uid} />
+      </PopOver>
+    </nav>
   );
 };
