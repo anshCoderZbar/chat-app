@@ -164,21 +164,27 @@ export const Home = () => {
                           ? data?.senderName
                           : data?.receiverName}
                       </div>
-                      {/* {lastChat?.length >= 1 &&
+
+                      {lastChat?.length >= 1 &&
                         lastChat?.map((chat, i) => {
+                          const isMessageVisible =
+                            (chat?.receiverId === data.requestReceiverId ||
+                              chat?.receiverId === data.requestSenderId) &&
+                            (chat?.senderId === data.requestReceiverId ||
+                              chat?.senderId === data.requestSenderId);
+
                           return (
                             <div className="text-gray-200" key={i}>
-                              {(chat?.receiverId === data.requestReceiverId &&
-                                data.requestReceiverId !== userData?.uid) ||
-                              (chat?.senderId === data.requestSenderId &&
-                                data.requestSenderId !== userData?.uid)
-                                ? chat?.message.length > 35
-                                  ? chat?.message?.slice(0, 35) + "..."
-                                  : chat?.message
-                                : null}
+                              {isMessageVisible && (
+                                <div>
+                                  {chat.message.length > 35
+                                    ? chat.message.slice(0, 35) + "..."
+                                    : chat.message}
+                                </div>
+                              )}
                             </div>
                           );
-                        })} */}
+                        })}
                     </div>
                   </Link>
                 );
