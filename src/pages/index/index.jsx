@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { collection, doc, getFirestore, onSnapshot } from "firebase/firestore";
 
 import { InputMessage } from "../../common/chatIndex/Input";
@@ -7,6 +7,7 @@ import { ArrowIcon, LoadingChatIcon } from "../../common/assets/icons";
 
 export const Home = () => {
   const db = getFirestore();
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [userChat, setUserChat] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -141,7 +142,13 @@ export const Home = () => {
                         : data?.requestReceiverId
                     }`}
                     onClick={() =>
-                      setActive({ toggle: true, name: data?.senderName })
+                      setActive({
+                        toggle: true,
+                        name:
+                          data?.senderName !== activeUser
+                            ? data?.senderName
+                            : data?.receiverName,
+                      })
                     }
                     className={`flex flex-row py-4 justify-center border-b border-[#2e374c] items-center gap-5 vs-f ${
                       data?.requestSenderId === id ||
@@ -205,9 +212,12 @@ export const Home = () => {
               <div className="main_top_bar">
                 <div
                   className="prvs"
-                  onClick={() =>
-                    setActive({ toggle: false, name: active?.name })
-                  }
+                  onClick={() => {
+                    setActive({ toggle: false, name: active?.name });
+                    setTimeout(() => {
+                      navigate("/");
+                    }, 500);
+                  }}
                 >
                   <ArrowIcon />
                 </div>

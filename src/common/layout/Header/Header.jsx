@@ -54,27 +54,34 @@ export const Header = () => {
         <h1 className="text-white text-xl font-bold">LetsTalk</h1>
       </Link>
       <div className="flex relative items-center gap-5">
-        <div
-          className={`${
-            active ? "block absolute top-14 w-auto" : "hidden"
-          } md:block`}
-        >
-          <DropdownSearchMenu />
-        </div>
-        <div onClick={() => setActive(!active)} className="block md:hidden">
-          <SearchIcon />
-        </div>
-        <div
-          className="cursor-pointer relative"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {totalRequest?.length >= 1 && (
-            <span className="bg-red-600 text-white rounded-full w-5 h-5 -right-2 -top-2 text-xs absolute grid place-items-center">
-              {totalRequest?.length}
-            </span>
-          )}
-          <NofiticationIcon />
-        </div>
+        {window?.location?.pathname === "/" ? (
+          <div
+            className={`${
+              active ? "block absolute top-14 w-auto" : "hidden"
+            } md:block`}
+          >
+            <DropdownSearchMenu />
+          </div>
+        ) : null}
+
+        {window?.location?.pathname === "/" ? (
+          <div onClick={() => setActive(!active)} className="block md:hidden">
+            <SearchIcon />
+          </div>
+        ) : null}
+        {window?.location?.pathname === "/" ? (
+          <div
+            className="cursor-pointer relative"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {totalRequest?.length >= 1 && (
+              <span className="bg-red-600 text-white rounded-full w-5 h-5 -right-2 -top-2 text-xs absolute grid place-items-center">
+                {totalRequest?.length}
+              </span>
+            )}
+            <NofiticationIcon />
+          </div>
+        ) : null}
         <button
           onClick={handleLogout}
           className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded"
