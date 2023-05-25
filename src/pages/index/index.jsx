@@ -37,10 +37,10 @@ export const Home = () => {
     if (id) {
       setLoading(true);
       const unsubscribeChat = onSnapshot(collection(db, "chat"), (snapshot) => {
-        const newData = snapshot.docs.map((doc) => ({
+        const newData = snapshot?.docs?.map((doc) => ({
           ...doc.data(),
         }));
-        const filteredChat = newData.filter(
+        const filteredChat = newData?.filter(
           (data) =>
             (data.receiverId.toLowerCase() === id.toLowerCase() &&
               data.senderId.toLowerCase() === userData?.uid.toLowerCase()) ||
@@ -70,11 +70,11 @@ export const Home = () => {
     const unsubscribeLastChat = onSnapshot(
       collection(db, "chat"),
       (snapshot) => {
-        const newData = snapshot.docs.map((doc) => ({
+        const newData = snapshot?.docs?.map((doc) => ({
           ...doc.data(),
         }));
 
-        const newUser = users.filter((data) => {
+        const newUser = users?.filter((data) => {
           return data.id !== userData?.uid;
         });
 
@@ -87,10 +87,10 @@ export const Home = () => {
             );
           });
 
-          const sortedChat = newChat.sort(sort);
+          const sortedChat = newChat?.sort(sort);
 
-          return sortedChat.length > 0
-            ? sortedChat[sortedChat.length - 1]
+          return sortedChat?.length > 0
+            ? sortedChat[sortedChat?.length - 1]
             : null;
         });
         setLastChat(newId);
@@ -105,7 +105,7 @@ export const Home = () => {
     const unsubscribe = onSnapshot(
       doc(db, "users", userData?.uid),
       (snapshot) => {
-        const newData = snapshot.data();
+        const newData = snapshot?.data();
         setSelectedUsers(
           newData?.friendsList?.filter(
             (data) =>
@@ -126,7 +126,7 @@ export const Home = () => {
       <div className="bg-gray-800 min-h-screen row-span-full col-span-full md:col-span-1  h-full user-side">
         <div className="max-h-[1080px] w-full overflow-x-hidden">
           <div className="h-[91vh] relative mt-[5.25rem] text-white chat-gs overflow-x-hidden overflow-y-scroll cursor-pointer">
-            {selectedUsers?.length >= 1 &&
+            {selectedUsers?.length >= 1 ? (
               selectedUsers?.map((data, i) => {
                 return (
                   <Link
@@ -184,9 +184,9 @@ export const Home = () => {
                             <div className="text-gray-200" key={i}>
                               {isMessageVisible && (
                                 <div>
-                                  {chat.message.length > 35
-                                    ? chat.message.slice(0, 35) + "..."
-                                    : chat.message}
+                                  {chat?.message?.length > 35
+                                    ? chat?.message?.slice(0, 35) + "..."
+                                    : chat?.message}
                                 </div>
                               )}
                             </div>
@@ -195,7 +195,12 @@ export const Home = () => {
                     </div>
                   </Link>
                 );
-              })}
+              })
+            ) : (
+              <h1 className="h-[91vh] grid place-items-center">
+                Please add user from search
+              </h1>
+            )}
           </div>
         </div>
       </div>
