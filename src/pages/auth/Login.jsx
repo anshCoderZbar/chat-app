@@ -96,7 +96,7 @@ export const LoginPage = () => {
                 setTab({ initial: false, loginForm: true });
                 sessionStorage.setItem("status", true);
               }}
-              className="bg-gray-700 py-3 px-7 rounded-full font-semibold text-white hover:bg-gray-800"
+              className="bg-gray-700 py-3 px-7 rounded-full font-semibold text-white hover:bg-gray-800 mb-5"
             >
               Get Started Now!
             </button>
@@ -155,7 +155,7 @@ export const LoginPage = () => {
               ) : (
                 <button
                   type="submit"
-                  className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                  className="bg-gray-800 hover:bg-gray-900 mb-4 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                 >
                   Sign-up
                 </button>
