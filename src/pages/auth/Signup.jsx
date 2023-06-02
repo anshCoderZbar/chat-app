@@ -11,6 +11,7 @@ import { signUpSchema } from "../../common/auth/validation";
 
 import { LoadingIcon, Logo } from "../../common/assets/icons";
 import { useNotifications } from "reapop";
+import mobileImg from "../../common/assets/images/mobile.png";
 
 export const SignupPage = () => {
   const auth = getAuth(app);
@@ -49,20 +50,19 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-800">
-      <div className="bg-gray-800 text-white w-1/2 h-screen hidden md:flex items-center justify-center">
-        <div className="text-center">
-          <div className="flex justify-center my-8">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr,1fr]">
+      <div className="bg-gray-800 rounded-bl-[40%] rounded-br-[40%] md:rounded-tr-[40%] md:rounded-bl-[0] md:rounded-br-[40%]">
+        <div className="flex items-center justify-center md:justify-between h-96 relative md:min-h-screen">
+          <div className="w-[100%] sm:w-[60%] m-5">
+            <img src={mobileImg} alt="mobileImg" />
+          </div>
+          <div className="h-28 w-28 bg-blue-50 rounded-full grid place-content-center absolute -bottom-14 md:-right-14 md:bottom-auto">
             <Logo />
           </div>
-          <p className="text-xl mb-8">
-            Create an account and get started with our chat application
-          </p>
-          <p className="text-xl">Enjoy the benefits and features we offer!</p>
         </div>
       </div>
 
-      <div className="bg-white w-full md:w-1/2 h-screen flex items-center justify-center">
+      <div className="bg-white w-full my-16 flex items-center justify-center">
         <div className="w-2/3">
           <h2 className="text-3xl font-bold mb-4 text-center">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
