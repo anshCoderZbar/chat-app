@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addDoc, collection, getFirestore } from "@firebase/firestore";
+import { SendIcon } from "../assets/icons";
 
 export const InputMessage = ({ id }) => {
   const db = getFirestore();
@@ -33,24 +34,24 @@ export const InputMessage = ({ id }) => {
   const isButtonDisabled = message.length === 0;
 
   return (
-    <footer className="p-4 bg-gray-900 sticky  w-full bottom-0  z-50">
+    <footer className="p-4  sticky  w-full bottom-0  z-50">
       <form onSubmit={handleSubmit} className="flex" noValidate>
         <input
           type="text"
           placeholder="Type your message..."
           name="message"
           value={message}
-          className="w-full px-4 py-2 rounded-md bg-gray-700 text-white focus:outline-none"
+          className="w-full px-4 py-2 rounded-md bg-transparent text-black border-2 focus:outline-none"
           onChange={(e) => setMessage(e?.target?.value)}
           required
         />
         <button
           disabled={isButtonDisabled}
-          className={`px-4 py-2 ml-2 text-white bg-indigo-500 rounded-md hover:bg-indigo-600 focus:outline-none ${
-            isButtonDisabled ? "bg-indigo-400 hover:bg-indigo-400 " : ""
+          className={`px-4 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none ${
+            isButtonDisabled ? "bg-blue-400 hover:bg-blue-400 " : ""
           }`}
         >
-          Send
+          <SendIcon />
         </button>
       </form>
     </footer>

@@ -183,13 +183,16 @@ const DropdownSearchMenu = () => {
       if (friendRequest.requestStatus) {
         return (
           <div onClick={() => notify("user alerady added", "info")}>
-            <ConfirmIcon disa />
+            <ConfirmIcon />
           </div>
         );
       } else {
         return (
-          <div onClick={() => notify(`please wait until respond`, "info")}>
-            <PendingIcon disa />
+          <div
+            className="text-black"
+            onClick={() => notify(`please wait until respond`, "info")}
+          >
+            <PendingIcon />
           </div>
         );
       }
@@ -208,19 +211,18 @@ const DropdownSearchMenu = () => {
         type="text"
         value={selectedOption}
         onChange={(e) => setSelectedOption(e?.target?.value)}
-        className="block w-full py-2 px-3 pr-8 leading-tight bg-gray-800 border border-gray-300 rounded-md shadow-sm text-white focus:outline-none focus:border-gray-500"
+        className="block  w-full py-2 px-3 pr-8 leading-tight bg-transparent border border-black rounded-md shadow-sm text-black focus:outline-none placeholder:text-black"
         placeholder="Search Username"
       />
-
       {selectedOption && (
-        <ul className="absolute z-10 w-full py-2 mt-1 text-base bg-gray-700 border border-gray-300 rounded-md shadow-sm">
+        <ul className=" z-10 w-full max-h-72 overflow-y-auto py-2 mt-1 text-base border border-gray-300 rounded-md shadow-sm">
           {searchedUser?.length >= 1 ? (
             searchedUser?.map((user, i) => (
               <li
                 key={i}
-                className="flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-600"
+                className="flex items-center justify-between px-3 py-2 cursor-pointer "
               >
-                <span className="text-white">{user.username}</span>
+                <span className="text-black capitalize">{user.username}</span>
                 <div className="flex-shrink-0 text-white py-1 px-3 rounded-md">
                   {getRequestStatus(user)}
                 </div>
@@ -228,7 +230,7 @@ const DropdownSearchMenu = () => {
             ))
           ) : (
             <li className="flex items-center justify-center px-3 py-2">
-              <span className="text-white">No matching user found</span>
+              <span className="text-black">No matching user found</span>
             </li>
           )}
         </ul>

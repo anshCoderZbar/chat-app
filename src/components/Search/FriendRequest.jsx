@@ -63,13 +63,11 @@ export const FriendRequest = ({ id }) => {
         filteredResponse?.map((data) => {
           return (
             <div
-              className="flex  items-center justify-between border-b-[1px] border-[#2e374c] p-7"
+              className="flex  items-center justify-between border-b-[1px] p-4"
               key={data?.requestSenderId}
             >
-              <p className="mr-2 text-white">
-                <strong className="capitalize fw-normal">
-                  {data?.senderName}{" "}
-                </strong>
+              <p className="mr-2 black">
+                <strong className=" mr-2 fw-normal">{data?.senderName}</strong>
                 sent a request
               </p>
               <div className="flex gap-2 cursor-pointer">
@@ -89,8 +87,8 @@ export const FriendRequest = ({ id }) => {
           );
         })
       ) : (
-        <li className="flex items-center justify-center px-3 py-2">
-          <span className="text-white">No Request found</span>
+        <li className="flex  items-center justify-center px-3 py-2">
+          <span className="text-black">No Request found</span>
         </li>
       )}
     </>

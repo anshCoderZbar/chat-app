@@ -4,10 +4,10 @@ import { Header } from "./Header/Header";
 
 export const MasterLayout = ({ children }) => {
   return (
-    <React.Fragment>
+    <div className="md:flex">
       <Header />
       {children}
       {/* <Footer /> */}
-    </React.Fragment>
+    </div>
   );
 };

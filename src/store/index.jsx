@@ -4,6 +4,7 @@ const UserContext = createContext({});
 
 export const Store = ({ children }) => {
   const [userDetails, setUserDetails] = useState({});
+  const [toggle, setToggle] = useState(false);
   const [auth, setAuth] = useState(() => {
     const authData = JSON.parse(sessionStorage.getItem("userData"));
     return authData || {};
@@ -15,7 +16,9 @@ export const Store = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ userDetails, setUserDetails, auth }}>
+    <UserContext.Provider
+      value={{ userDetails, setUserDetails, auth, toggle, setToggle }}
+    >
       {children}
     </UserContext.Provider>
   );

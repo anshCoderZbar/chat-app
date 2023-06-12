@@ -23,7 +23,7 @@ export const PopOver = ({ isOpen, setIsOpen, children }) => {
   }, [isOpen, setIsOpen]);
 
   return (
-    <div className="fixed top-20 -mx-6" ref={popoverRef}>
+    <div className="relative  -mx-6" ref={popoverRef}>
       <Popover className="flex justify-center w-screen">
         <Transition
           show={isOpen}
@@ -36,10 +36,8 @@ export const PopOver = ({ isOpen, setIsOpen, children }) => {
           leaveTo="opacity-0 translate-y-1"
         >
           <Popover.Panel className="z-10 mt-3 w-screen sm:min-w-min max-w-sm lg:max-w-3xl">
-            <div className="overflow-hidden border border-[#2e374c] rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-              <div className="gap-8 bg-gray-700 overflow-y-auto max-h-[40rem]">
-                {children}
-              </div>
+            <div className="overflow-hidden border border-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+              <div className="gap-8 px-5 py-5 ">{children}</div>
             </div>
           </Popover.Panel>
         </Transition>

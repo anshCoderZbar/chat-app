@@ -26,7 +26,7 @@ export const Logo = () => {
         <g transform="scale(5.33333,5.33333)">
           <path
             d="M42.08008,43h-11.58008c-3.48743,0.01549 -6.86913,-1.19656 -9.55273,-3.42383c-1.04743,-0.87106 -1.96145,-1.89103 -2.71289,-3.02734c-0.30311,-0.46167 -0.17457,-1.08165 0.28711,-1.38476c0.46167,-0.30311 1.08165,-0.17457 1.38476,0.2871c0.64433,0.973 1.42771,1.84637 2.3252,2.59229c2.32376,1.92542 5.25079,2.97202 8.26855,2.95654h10.65039l-2.085,-1.66943c-0.23057,-0.18442 -0.36783,-0.46133 -0.37499,-0.7565c-0.00716,-0.29517 0.11652,-0.5784 0.33788,-0.77378c2.51583,-2.16243 3.96569,-5.31292 3.97172,-8.63037c-0.05007,-4.50098 -2.66911,-8.5771 -6.74219,-10.49316c-0.4954,-0.24432 -0.69894,-0.84399 -0.45461,-1.33938c0.24432,-0.4954 0.84399,-0.69894 1.33939,-0.45462c4.75808,2.25073 7.81038,7.0238 7.85742,12.28716c-0.01938,3.47662 -1.37906,6.81178 -3.7959,9.311l1.9209,1.53808c0.55438,0.44428 0.76805,1.19004 0.53304,1.86048c-0.23501,0.67044 -0.86752,1.1196 -1.57796,1.12052z"
-            fill="green"
+            fill="#424242"
           ></path>
           <circle cx="19" cy="21" r="2" fill="#424242"></circle>
           <circle cx="13" cy="21" r="2" fill="#424242"></circle>
@@ -180,7 +180,7 @@ export const NofiticationIcon = () => {
       fill="transparent"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="white"
+      stroke="black"
       className="w-6 h-6"
     >
       <path
@@ -256,7 +256,7 @@ export const AddFriend = () => {
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={1.5}
-      stroke="currentColor"
+      stroke="black"
       className="w-6 h-6"
     >
       <path
@@ -275,12 +275,69 @@ export const PendingIcon = () => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className="w-8 h-8"
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  );
+};
+
+export const ChatIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+      />
+    </svg>
+  );
+};
+
+export const Logout = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-9 h-9"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+      />
+    </svg>
+  );
+};
+
+export const SendIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-6 h-6"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
       />
     </svg>
   );
