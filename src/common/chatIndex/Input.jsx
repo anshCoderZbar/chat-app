@@ -34,7 +34,7 @@ export const InputMessage = ({ id }) => {
   const isButtonDisabled = message.length === 0;
 
   return (
-    <footer className="p-4  sticky  w-full bottom-0  z-50">
+    <footer className="p-4  fixed bg-white w-full bottom-0  z-50">
       <form onSubmit={handleSubmit} className="flex" noValidate>
         <input
           type="text"

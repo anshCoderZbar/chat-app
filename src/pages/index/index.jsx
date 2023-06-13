@@ -124,7 +124,7 @@ export const Home = () => {
   }, [db, id]);
   return (
     <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss">
-      <div className="bg-white min-h-screen row-span-full border-r-2 col-span-full md:col-span-1  h-full user-side">
+      <div className="bg-white  row-span-full border-r-2 col-span-full md:col-span-1 h-screen user-side">
         <div className="px-8 h-20 flex justify-between items-center ">
           <h1 className="font-bold text-xl">Chats</h1>
           <div

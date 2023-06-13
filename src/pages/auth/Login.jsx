@@ -83,11 +83,8 @@ export const LoginPage = () => {
       </div>
 
       {tab && tab.initial && (
-        <div className="bg-white w-full mt-16 md:h-[90vh] flex items-center justify-center transition ease-in-out duration-1000	">
+        <div className="bg-white w-full mt-20  md:h-[90vh] flex items-center justify-center transition ease-in-out duration-1000	">
           <div className="text-center">
-            <div className="flex justify-center my-8">
-              <Logo />
-            </div>
             <p className="text-xl mb-8">
               Click here to login into your account
             </p>
