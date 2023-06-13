@@ -123,8 +123,8 @@ export const Home = () => {
     return () => unsubscribe();
   }, [db, id]);
   return (
-    <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss">
-      <div className="bg-white  row-span-full border-r-2 col-span-full md:col-span-1 h-screen user-side">
+    <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
+      <div className="bg-white  row-span-full border-r-2 md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
         <div className="px-8 h-20 flex justify-between items-center ">
           <h1 className="font-bold text-xl">Chats</h1>
           <div
@@ -218,11 +218,11 @@ export const Home = () => {
       </div>
       {id && id ? (
         <div
-          className={`flex flex-col white ${
+          className={`flex flex-col  ${
             active.toggle
               ? "translate-x-0 transition-ease-in duration-500 bg-white"
               : "translate-x-full transition-ease-out duration-500 bg-white"
-          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 min-h-screen  h-full  text-black chat-side`}
+          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0  h-screen min-h-screen  text-black chat-side`}
         >
           <div className="px-1 md:px-8 fixed w-full  h-20 flex items-center border-b-2">
             <div
@@ -232,9 +232,11 @@ export const Home = () => {
                   navigate("/");
                 }, 500);
               }}
-              className="flex items-center gap-3 "
+              className="flex  items-center gap-3 "
             >
-              <ArrowIcon />
+              <div className="block md:hidden">
+                <ArrowIcon />
+              </div>
               <div className="border-2 border-[#48587c]  relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
                 {active && active?.name?.charAt(0)}
               </div>
@@ -242,24 +244,6 @@ export const Home = () => {
             <h1 className="font-bold text-xl">{active && active?.name}</h1>
           </div>
           <div className="flex-grow p-4 mt-[5.35rem] relative  overflow-y-auto overflow-x-hidden">
-            {/* <div className="back block fixed  md:hidden ">
-              <div className="main_top_bar">
-                <div
-                  className="prvs"
-                  onClick={() => {
-                    setActive({ toggle: false, name: active?.name });
-                    setTimeout(() => {
-                      navigate("/");
-                    }, 500);
-                  }}
-                >
-                  <ArrowIcon />
-                </div>
-                <div className="user_name capitalize">
-                  <strong>{active && active?.name}</strong>
-                </div>
-              </div>
-            </div> */}
             {loading ? (
               <div className="grid place-items-center h-[80vh]">
                 <LoadingChatIcon />
@@ -288,7 +272,9 @@ export const Home = () => {
               ))
             )}
           </div>
-          <InputMessage id={id} />
+          <div className="p-4 relative w-full bottom-0 bg-white">
+            <InputMessage id={id} />
+          </div>
         </div>
       ) : (
         <div className="hidden md:flex flex-col min-h-screen white chat-side text-black ">

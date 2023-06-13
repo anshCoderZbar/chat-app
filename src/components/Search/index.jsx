@@ -206,7 +206,7 @@ const DropdownSearchMenu = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative bg-white ">
       <input
         type="text"
         value={selectedOption}

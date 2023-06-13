@@ -58,12 +58,12 @@ export const FriendRequest = ({ id }) => {
   };
 
   return (
-    <>
+    <div className="bg-white">
       {filteredResponse?.length >= 1 ? (
         filteredResponse?.map((data) => {
           return (
             <div
-              className="flex  items-center justify-between border-b-[1px] p-4"
+              className="flex   items-center justify-between border-b-[1px] p-4"
               key={data?.requestSenderId}
             >
               <p className="mr-2 black">
@@ -91,6 +91,6 @@ export const FriendRequest = ({ id }) => {
           <span className="text-black">No Request found</span>
         </li>
       )}
-    </>
+    </div>
   );
 };

@@ -34,26 +34,24 @@ export const InputMessage = ({ id }) => {
   const isButtonDisabled = message.length === 0;
 
   return (
-    <footer className="p-4  fixed bg-white w-full bottom-0  z-50">
-      <form onSubmit={handleSubmit} className="flex" noValidate>
-        <input
-          type="text"
-          placeholder="Type your message..."
-          name="message"
-          value={message}
-          className="w-full px-4 py-2 rounded-md bg-transparent text-black border-2 focus:outline-none"
-          onChange={(e) => setMessage(e?.target?.value)}
-          required
-        />
-        <button
-          disabled={isButtonDisabled}
-          className={`px-4 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none ${
-            isButtonDisabled ? "bg-blue-400 hover:bg-blue-400 " : ""
-          }`}
-        >
-          <SendIcon />
-        </button>
-      </form>
-    </footer>
+    <form onSubmit={handleSubmit} className="flex" noValidate>
+      <input
+        type="text"
+        placeholder="Type your message..."
+        name="message"
+        value={message}
+        className="w-full px-4 py-2 rounded-md bg-transparent text-black border-2 focus:outline-none"
+        onChange={(e) => setMessage(e?.target?.value)}
+        required
+      />
+      <button
+        disabled={isButtonDisabled}
+        className={`px-4 py-2 ml-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none ${
+          isButtonDisabled ? "bg-blue-400 hover:bg-blue-400 " : ""
+        }`}
+      >
+        <SendIcon />
+      </button>
+    </form>
   );
 };
