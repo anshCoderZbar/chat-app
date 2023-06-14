@@ -221,11 +221,11 @@ export const Home = () => {
       </div>
       {id && id ? (
         <div
-          className={`flex flex-col  ${
+          className={`${
             active.toggle
               ? "translate-x-0 transition-ease-in duration-500 bg-white"
               : "translate-x-full transition-ease-out duration-500 bg-white"
-          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0  h-screen min-h-screen  text-black chat-side`}
+          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 h-screen max-h-screen  text-black `}
         >
           <div className="px-1 md:px-8 fixed w-full bg-white h-20 flex items-center border-b-[1px] border-[#e6e6e6]">
             <div
@@ -247,11 +247,12 @@ export const Home = () => {
             <h1 className="font-bold text-base">{active && active?.name}</h1>
           </div>
           <div
-            className="flex-grow mt-20 p-3 relative overflow-y-auto overflow-x-hidden"
+            className="mt-20 p-3 overflow-y-auto overflow-x-hidden"
             style={{
               backgroundImage: `url(${bgImg})`,
-              backgroundRepeat: "repeat",
               backgroundPosition: "center",
+              height: "100%",
+              width: "100%",
             }}
           >
             {loading ? (
@@ -282,7 +283,7 @@ export const Home = () => {
               ))
             )}
           </div>
-          <div className="p-4 relative w-full bottom-0 bg-white border-t-[1px] pb-12 border-[#e6e6e6]">
+          <div className="p-4 fixed w-full bottom-0 bg-white border-t-[1px] pb-12 border-[#e6e6e6]">
             <InputMessage id={id} />
           </div>
         </div>
