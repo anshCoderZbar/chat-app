@@ -5,6 +5,7 @@ import { collection, doc, getFirestore, onSnapshot } from "firebase/firestore";
 import { InputMessage } from "../../common/chatIndex/Input";
 import { ArrowIcon, LoadingChatIcon } from "../../common/assets/icons";
 import { AppContext } from "../../store";
+import bgImg from "../../common/assets/images/background.jpg";
 
 export const Home = () => {
   const db = getFirestore();
@@ -123,9 +124,9 @@ export const Home = () => {
     return () => unsubscribe();
   }, [db, id]);
   return (
-    <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss">
-      <div className="bg-white row-span-full border-r-[1px] border-[#e6e6e6] md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
-        <div className="px-8 h-20 flex justify-between items-center">
+    <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
+      <div className="bg-white overflow-y-hidden  row-span-full border-r-[1px] border-[#e6e6e6]  md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
+        <div className="px-8 h-20 flex justify-between items-center ">
           <Link to="/" className="font-bold text-xl">
             Chats
           </Link>
@@ -138,8 +139,8 @@ export const Home = () => {
             <div className="h-[2px] w-7 my-1 rounded-lg bg-black"></div>
           </div>
         </div>
-        <div className="max-h-[1080px] w-full">
-          <div className="h-[91vh] relative text-black chat-gs overflow-x-hidden overflow-y-auto cursor-pointer">
+        <div className="max-h-[1080px] w-full overflow-x-hidden">
+          <div className="h-[91vh] relative  text-black chat-gs overflow-x-hidden overflow-y-scroll cursor-pointer">
             {selectedUsers?.length >= 1 ? (
               selectedUsers?.map((data, i) => {
                 return (
@@ -164,14 +165,14 @@ export const Home = () => {
                             : data?.receiverName,
                       })
                     }
-                    className={`flex flex-row py-4 justify-center border-b items-center gap-5 vs-f ${
+                    className={`flex flex-row py-4 justify-center  border-b   items-center gap-5 vs-f ${
                       data?.requestSenderId === id ||
                       data?.requestReceiverId === id
                         ? "md:bg-gray-200 md:text-gray-900 md:border-white"
                         : ""
                     }`}
                   >
-                    <div className="border-[1px] border-[#e6e6e6] bg-blue-50 relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-16 uppercase">
+                    <div className="border-[1px] border-[#e6e6e6] bg-blue-50  relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-16 uppercase">
                       {activeUser !== data?.senderName
                         ? data?.senderName?.charAt(0)
                         : data?.receiverName?.charAt(0)}
@@ -220,13 +221,13 @@ export const Home = () => {
       </div>
       {id && id ? (
         <div
-          className={`flex flex-col ${
+          className={`flex flex-col  ${
             active.toggle
               ? "translate-x-0 transition-ease-in duration-500 bg-white"
               : "translate-x-full transition-ease-out duration-500 bg-white"
-          } w-full col-span-full md:col-span-1 row-span-full md:translate-x-0 h-screen min-h-screen text-black chat-side`}
+          }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0  h-screen min-h-screen  text-black chat-side`}
         >
-          <div className="px-1 md:px-8 w-full h-20 flex items-center border-b-[1px] border-[#e6e6e6]">
+          <div className="px-1 md:px-8 fixed w-full bg-white h-20 flex items-center border-b-[1px] border-[#e6e6e6]">
             <div
               onClick={() => {
                 setActive({ toggle: false, name: active?.name });
@@ -234,18 +235,25 @@ export const Home = () => {
                   navigate("/");
                 }, 500);
               }}
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 "
             >
               <div className="block md:hidden">
                 <ArrowIcon />
               </div>
             </div>
-            <div className="border-[1px] border-[#e6e6e6] bg-blue-50 relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
+            <div className="border-[1px] border-[#e6e6e6]  bg-blue-50   relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
               {active && active?.name?.charAt(0)}
             </div>
             <h1 className="font-bold text-base">{active && active?.name}</h1>
           </div>
-          <div className="flex-grow p-4 relative overflow-y-auto overflow-x-hidden">
+          <div
+            className="flex-grow mt-20 p-3 relative overflow-y-auto overflow-x-hidden"
+            style={{
+              backgroundImage: `url(${bgImg})`,
+              backgroundRepeat: "repeat",
+              backgroundPosition: "center",
+            }}
+          >
             {loading ? (
               <div className="grid place-items-center h-[80vh]">
                 <LoadingChatIcon />
@@ -262,13 +270,13 @@ export const Home = () => {
                   } mb-2`}
                 >
                   <div
-                    className={`p-3 rounded-lg ${
+                    className={`p-3 rounded-lg bg-white ${
                       message.senderId === userData?.uid
                         ? "border-2 !rounded-br-none"
                         : "border-2 !rounded-bl-none"
                     }`}
                   >
-                    <p className="text-sm">{message.message}</p>
+                    <p className="text-sm ">{message.message}</p>
                   </div>
                 </div>
               ))
