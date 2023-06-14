@@ -149,7 +149,7 @@ export const Header = () => {
 
   return (
     <nav
-      className={`bg-[#fff] border-r-2 shadow-md  ${
+      className={`bg-[#fff] border-r-[1px] border-[#e6e6e6]   ${
         toggle
           ? "translate-x-[0%] absolute z-[99999] w-[50%] transition-all"
           : "-translate-x-[110%] absolute  z-[999999] transition-all"

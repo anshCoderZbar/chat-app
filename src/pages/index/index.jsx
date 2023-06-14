@@ -124,9 +124,11 @@ export const Home = () => {
   }, [db, id]);
   return (
     <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
-      <div className="bg-white  row-span-full border-r-2 md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
+      <div className="bg-white  row-span-full border-r-[1px] border-[#e6e6e6]  md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
         <div className="px-8 h-20 flex justify-between items-center ">
-          <h1 className="font-bold text-xl">Chats</h1>
+          <Link to="/" className="font-bold text-xl">
+            Chats
+          </Link>
           <div
             onClick={() => setToggle(!toggle)}
             className="border-2 p-1 rounded-md border-black cursor-pointer md:hidden md:pointer-events-none"
@@ -169,7 +171,7 @@ export const Home = () => {
                         : ""
                     }`}
                   >
-                    <div className="border-2 border-[#48587c]  relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-16 uppercase">
+                    <div className="border-[1px] border-[#e6e6e6] bg-blue-50  relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-16 uppercase">
                       {activeUser !== data?.senderName
                         ? data?.senderName?.charAt(0)
                         : data?.receiverName?.charAt(0)}
@@ -224,7 +226,7 @@ export const Home = () => {
               : "translate-x-full transition-ease-out duration-500 bg-white"
           }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0  h-screen min-h-screen  text-black chat-side`}
         >
-          <div className="px-1 md:px-8 fixed w-full  h-20 flex items-center border-b-2">
+          <div className="px-1 md:px-8 fixed w-full  h-20 flex items-center border-b-[1px] border-[#e6e6e6]">
             <div
               onClick={() => {
                 setActive({ toggle: false, name: active?.name });
@@ -232,16 +234,16 @@ export const Home = () => {
                   navigate("/");
                 }, 500);
               }}
-              className="flex  items-center gap-3 "
+              className="flex items-center gap-3 "
             >
               <div className="block md:hidden">
                 <ArrowIcon />
               </div>
-              <div className="border-2 border-[#48587c]  relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
-                {active && active?.name?.charAt(0)}
-              </div>
             </div>
-            <h1 className="font-bold text-xl">{active && active?.name}</h1>
+            <div className="border-[1px] border-[#e6e6e6]  bg-blue-50   relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
+              {active && active?.name?.charAt(0)}
+            </div>
+            <h1 className="font-bold text-base">{active && active?.name}</h1>
           </div>
           <div className="flex-grow p-4 mt-[5.35rem] relative  overflow-y-auto overflow-x-hidden">
             {loading ? (
@@ -272,7 +274,7 @@ export const Home = () => {
               ))
             )}
           </div>
-          <div className="p-4 relative w-full bottom-0 bg-white">
+          <div className="p-4 relative w-full bottom-0 bg-white border-t-[1px] pb-12 border-[#e6e6e6]">
             <InputMessage id={id} />
           </div>
         </div>

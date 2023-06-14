@@ -9,9 +9,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { app } from "../../firebase";
 import { signUpSchema } from "../../common/auth/validation";
 
-import { LoadingIcon, Logo } from "../../common/assets/icons";
+import { LoadingIcon } from "../../common/assets/icons";
 import { useNotifications } from "reapop";
-import mobileImg from "../../common/assets/images/mobile.png";
+import { AuthBanner } from "../../components/AuthBanner";
 
 export const SignupPage = () => {
   const auth = getAuth(app);
@@ -51,16 +51,7 @@ export const SignupPage = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[1fr,1fr]">
-      <div className="bg-gray-800 rounded-bl-[40%] rounded-br-[40%] md:rounded-tr-[40%] md:rounded-bl-[0] md:rounded-br-[40%]">
-        <div className="flex items-center justify-center md:justify-between h-96 relative md:min-h-screen">
-          <div className="w-[100%] sm:w-[60%] m-5">
-            <img src={mobileImg} alt="mobileImg" />
-          </div>
-          <div className="h-28 w-28 bg-blue-50 rounded-full grid place-content-center absolute -bottom-14 md:-right-14 md:bottom-auto">
-            <Logo />
-          </div>
-        </div>
-      </div>
+      <AuthBanner />
 
       <div className="bg-white w-full my-16 flex items-center justify-center">
         <div className="w-2/3">
@@ -69,14 +60,15 @@ export const SignupPage = () => {
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block text-gray-700 font-bold mb-2"
+                className="block text-gray-700 font-bold m-2"
               >
                 Username:
               </label>
               <input
                 type="text"
                 id="userName"
-                className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
+                placeholder="myname"
+                className="w-full border text-sm md:text-base border-gray-400 py-2 px-3 rounded-full focus:outline-none focus:border-blue-500 placeholder:text-sm"
                 {...register("userName")}
               />
               <p className="errorMessage">{errors?.userName?.message}</p>
@@ -84,14 +76,15 @@ export const SignupPage = () => {
             <div className="mb-4">
               <label
                 htmlFor="email"
-                className="block text-gray-700 font-bold mb-2"
+                className="block text-gray-700 font-bold m-2"
               >
                 Email:
               </label>
               <input
                 type="email"
                 id="email"
-                className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
+                placeholder="myname@example.com"
+                className="w-full border text-sm md:text-base border-gray-400 py-2 px-3 rounded-full focus:outline-none focus:border-blue-500 placeholder:text-sm"
                 {...register("email")}
               />
               <p className="errorMessage">{errors?.email?.message}</p>
@@ -99,14 +92,15 @@ export const SignupPage = () => {
             <div className="mb-4">
               <label
                 htmlFor="password"
-                className="block text-gray-700 font-bold mb-2"
+                className="block text-gray-700 font-bold m-2"
               >
                 Password:
               </label>
               <input
                 type="password"
                 id="password"
-                className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
+                placeholder="********"
+                className="w-full border text-sm md:text-base border-gray-400 py-2 px-3 rounded-full focus:outline-none focus:border-blue-500 placeholder:text-sm"
                 autoComplete="false"
                 {...register("password")}
               />
@@ -115,14 +109,15 @@ export const SignupPage = () => {
             <div className="mb-4">
               <label
                 htmlFor="confirmPassword"
-                className="block text-gray-700 font-bold mb-2"
+                className="block text-gray-700 font-bold m-2"
               >
                 Confirm Password:
               </label>
               <input
                 type="password"
                 id="confirmPassword"
-                className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:border-blue-500"
+                placeholder="********"
+                className="w-full border text-sm md:text-base border-gray-400 py-2 px-3 rounded-full focus:outline-none focus:border-blue-500 placeholder:text-sm"
                 autoComplete="false"
                 {...register("confirmPassword")}
               />
@@ -143,7 +138,7 @@ export const SignupPage = () => {
             ) : (
               <button
                 type="submit"
-                className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full"
               >
                 Sign-up
               </button>

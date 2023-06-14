@@ -81,7 +81,7 @@ export const FriendRequest = ({ id }) => {
                 >
                   <ConfirmIcon />
                 </div>
-                <CloseIcon />
+                {/* <CloseIcon /> */}
               </div>
             </div>
           );
