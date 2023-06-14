@@ -14,6 +14,7 @@ export const Home = () => {
   const [users, setUsers] = useState([]);
   const [userChat, setUserChat] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [searchUser, setSearchUser] = useState("");
   const [active, setActive] = useState({ toggle: false, name: "" });
   const [loading, setLoading] = useState(false);
   const [lastChat, setLastChat] = useState([]);
@@ -123,6 +124,20 @@ export const Home = () => {
 
     return () => unsubscribe();
   }, [db, id]);
+
+  const filteredSearchedUser = selectedUsers?.filter((data) => {
+    return (
+      (data.receiverName !== activeUser &&
+        data.receiverName
+          .toLowerCase()
+          .includes(searchUser.toLocaleLowerCase())) ||
+      (data.senderName !== activeUser &&
+        data.senderName.toLowerCase().includes(searchUser.toLocaleLowerCase()))
+    );
+  });
+
+  console.log(filteredSearchedUser);
+
   return (
     <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
       <div className="bg-white overflow-y-hidden  row-span-full border-r-[1px] border-[#e6e6e6]  md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
@@ -139,10 +154,21 @@ export const Home = () => {
             <div className="h-[2px] w-7 my-1 rounded-lg bg-black"></div>
           </div>
         </div>
+        <div className="m-auto w-full px-8 py-4 mb-3">
+          <input
+            type="text"
+            placeholder="Search chats"
+            name="searchUser"
+            onChange={(e) => setSearchUser(e.target.value)}
+            value={searchUser}
+            className="w-full
+            py-2 px-4 rounded-lg bg-transparent text-black border-[1px] border-[#e6e6e6] focus:outline-none text-sm"
+          />
+        </div>
         <div className="max-h-[1080px] w-full overflow-x-hidden">
           <div className="h-[91vh] relative  text-black chat-gs overflow-x-hidden overflow-y-scroll cursor-pointer">
-            {selectedUsers?.length >= 1 ? (
-              selectedUsers?.map((data, i) => {
+            {filteredSearchedUser?.length >= 1 ? (
+              filteredSearchedUser?.map((data, i) => {
                 return (
                   <Link
                     key={i}
@@ -244,7 +270,9 @@ export const Home = () => {
             <div className="border-[1px] border-[#e6e6e6]  bg-blue-50   relative grid place-items-center rounded-full text-center font-semibold text-xl h-12 w-12 uppercase mr-4">
               {active && active?.name?.charAt(0)}
             </div>
-            <h1 className="font-bold text-base">{active && active?.name}</h1>
+            <h1 className="font-bold capitalize text-base">
+              {active && active?.name}
+            </h1>
           </div>
           <div
             className="mt-20 p-3 overflow-y-auto overflow-x-hidden"
@@ -290,9 +318,7 @@ export const Home = () => {
       ) : (
         <div className="hidden md:flex flex-col min-h-screen white chat-side text-black ">
           <div className="flex justify-center items-center h-screen mt-[5.25rem]">
-            <h1 className="text-lg">
-              Hello! Please select a user to start a chat with
-            </h1>
+            <h1 className="text-lg">Select a user to start a chat </h1>
           </div>
         </div>
       )}

@@ -162,7 +162,9 @@ export const Header = () => {
           </Link>
         </li>
         <li
-          className={`my-1 mx-1 px-5 py-4 rounded-lg text-blue-500 cursor-pointer bg-gray-200 `}
+          className={`my-1 mx-1 ${
+            toggle ? "px-5 py-4" : "p-0"
+          } rounded-lg text-blue-500 cursor-pointer bg-gray-200 `}
         >
           <ChatIcon />
         </li>
