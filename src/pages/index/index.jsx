@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { collection, doc, getFirestore, onSnapshot } from "firebase/firestore";
 
@@ -9,6 +9,7 @@ import bgImg from "../../common/assets/images/background.jpg";
 
 export const Home = () => {
   const db = getFirestore();
+  const chatContainerRef = useRef(null);
   const { setToggle, toggle } = AppContext();
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -136,7 +137,12 @@ export const Home = () => {
     );
   });
 
-  console.log(filteredSearchedUser);
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
+  }, [newChat]);
 
   return (
     <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
@@ -226,7 +232,7 @@ export const Home = () => {
                               {isMessageVisible && (
                                 <p>
                                   {chat?.message?.length > 35
-                                    ? chat?.message?.slice(0, 35) + "..."
+                                    ? chat?.message?.slice(0, 25) + "..."
                                     : chat?.message}
                                 </p>
                               )}
@@ -275,10 +281,11 @@ export const Home = () => {
             </h1>
           </div>
           <div
-            className="mt-20 p-3 overflow-y-auto overflow-x-hidden"
+            ref={chatContainerRef}
+            className="mt-20 p-3 overflow-y-auto overflow-x-hidden bg-[#ffffff]"
             style={{
-              backgroundImage: `url(${bgImg})`,
-              backgroundPosition: "center",
+              // backgroundImage: `url(${bgImg})`,
+              // backgroundPosition: "center",
               height: "100%",
               width: "100%",
             }}
@@ -299,13 +306,15 @@ export const Home = () => {
                   } mb-2`}
                 >
                   <div
-                    className={`p-3 rounded-lg bg-white ${
+                    className={`p-3 rounded-xl  ${
                       message.senderId === userData?.uid
-                        ? "border-2 !rounded-br-none"
-                        : "border-2 !rounded-bl-none"
+                        ? "border-none !rounded-br-none bg-blue-100 text-black"
+                        : "border-none !rounded-bl-none bg-slate-200 text-black"
                     }`}
                   >
-                    <p className="text-sm ">{message.message}</p>
+                    <p className="text-sm md:text-base font-normal ">
+                      {message.message}
+                    </p>
                   </div>
                 </div>
               ))
