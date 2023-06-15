@@ -144,6 +144,8 @@ export const Home = () => {
     }
   }, [newChat]);
 
+  // const getMsgTime = (timezone) => {};
+
   return (
     <div className="grid z-40 grid-cols-[1fr,1fr] w-[100%] relative md:grid-cols-[350px,1fr] b_ss overflow-y-hidden">
       <div className="bg-white overflow-y-hidden  row-span-full border-r-[1px] border-[#e6e6e6]  md:shadow-lg col-span-full md:col-span-1 h-screen max-h-screen user-side">
@@ -259,7 +261,7 @@ export const Home = () => {
               : "translate-x-full transition-ease-out duration-500 bg-white"
           }  w-full  col-span-full md:col-span-1 row-span-full  md:translate-x-0 h-screen min-h-screen  text-black `}
         >
-          <div className="px-1 md:px-8 fixed w-full bg-white h-20 max-h-20 flex items-center border-b-[1px] border-[#e6e6e6]">
+          <div className="px-1 md:px-8 fixed w-full bg-white h-20 max-h-[10%] flex items-center border-b-[1px] border-[#e6e6e6]">
             <div
               onClick={() => {
                 setActive({ toggle: false, name: active?.name });
@@ -282,7 +284,7 @@ export const Home = () => {
           </div>
           <div
             ref={chatContainerRef}
-            className="mt-20 p-3 overflow-y-auto overflow-x-hidden h-[78%] md:h-4/5"
+            className="mt-20 p-3 overflow-y-auto overflow-x-hidden h-4/5"
             style={{
               backgroundImage: `url(${bgImg})`,
               backgroundPosition: "center",
@@ -319,7 +321,7 @@ export const Home = () => {
               ))
             )}
           </div>
-          <div className="p-4 fixed w-full bottom-0 bg-white border-t-[1px] pb-12  border-[#e6e6e6]">
+          <div className="p-4 fixed w-full bottom-0 bg-white border-t-[1px] pb-12 h-[12%] border-[#e6e6e6]">
             <InputMessage id={id} />
           </div>
         </div>
